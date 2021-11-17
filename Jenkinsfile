@@ -13,6 +13,7 @@ pipeline {
         stage('Test') {
             steps {
                 // gradlew test
+                checkout scm
                 sh './gradlew clean test'
             }
         }
