@@ -14,13 +14,13 @@ pipeline {
             steps {
                 // gradlew test
                 checkout scm
-                sh './gradlew clean test'
+                // sh './gradlew clean test'
             }
         }
         stage('Build') {
             steps {
                 // gradlew build
-                sh './gradlew clean build'
+                sh './gradlew build'
             }
         }
         stage('Deploy') {
