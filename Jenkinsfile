@@ -12,18 +12,26 @@ pipeline {
     stages {
         stage('Test') {
             steps {
-                sh './gradlew test'
+                // gradlew test
+                sh './gradlew clean test'
             }
         }
         stage('Build') {
             steps {
-                sh './gradlew build'
+                // gradlew build
+                sh './gradlew clean build'
             }
         }
         stage('Deploy') {
             steps {
-                echo 'Deploying....'
+                sh 'docker build -t poolchm/javaccin:v0.0.8 .'
+                // docker push
             }
         }
     }
 }
+
+
+// 1. webhook  집에서 해보기
+// 2. jenkinsfile 3 단계 완성하기 
+// 3. 환경변수 jenkins에다가 넣기
