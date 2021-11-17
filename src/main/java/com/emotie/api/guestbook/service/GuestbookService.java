@@ -32,7 +32,7 @@ public class GuestbookService {
     public List<GuestbookResponse> getAllBoards(Member user, String memberId, Integer page) {
         checkGetAllBoardsRequestValidity(memberId);
         Member owner = memberService.getMemberById(memberId);
-        Pageable pageable = PageRequest.of(page - 1, PAGE_SIZE, Sort.by("createdAt").descending());
+        Pageable pageable = PageRequest.of(page, PAGE_SIZE, Sort.by("createdAt").descending());
         List<Guestbook> guestbooks = guestbookRepository.findByOwner(user, owner, Guestbook.reportCountThreshold, pageable);
         return guestbooks.stream()
                 .map(GuestbookResponse::of)
@@ -62,7 +62,7 @@ public class GuestbookService {
     }
 
     public void report(Member user, GuestbookReportRequest request, Long guestbookId) {
-        checkToggleReportRequestValidity(user, guestbookId);
+        checkReportRequestValidity(user, guestbookId);
         Guestbook target = getGuestbookById(guestbookId);
         if (user.equals(target.getOwner())) {
             target.ownerReport();
@@ -109,7 +109,7 @@ public class GuestbookService {
         guestbook.checkNotOverReported();
     }
 
-    private void checkToggleReportRequestValidity(Member user, Long guestbookId) {
+    private void checkReportRequestValidity(Member user, Long guestbookId) {
         Guestbook guestbook = getGuestbookById(guestbookId);
         guestbook.checkNotWriter(user);
     }

@@ -50,10 +50,7 @@ public class EmotionDataLoader implements ApplicationRunner {
     @Transactional
     @Override
     public void run(ApplicationArguments args) throws Exception {
-
         generateAdmin();
-        generateEmotions();
-
     }
 
     private void generateAdmin() {
@@ -75,45 +72,6 @@ public class EmotionDataLoader implements ApplicationRunner {
         memberRepository.save(
                 adminMember
         );
-
-    }
-
-    private void generateEmotions() {
-
-        emotionNames.add("설렘|FLUTTER");
-        emotionNames.add("질투|JEALOUS");
-        emotionNames.add("놀람|SURPRISED");
-        emotionNames.add("화남|ANGRY");
-        emotionNames.add("기쁨|HAPPY");
-        emotionNames.add("슬픔|SAD");
-        emotionNames.add("지침|TIRED");
-        emotionNames.add("무감정|NONE");
-
-        emotionColors.add("#A29CB6");
-        emotionColors.add("#9431A4");
-        emotionColors.add("#AEE477");
-        emotionColors.add("#FF855E");
-        emotionColors.add("#FFF27D");
-        emotionColors.add("#9FA7EF");
-        emotionColors.add("#ADADAD");
-        emotionColors.add("#FFFFFF");
-
-        for (int i = 0; i < 8; i++) {
-            Emotion emotion = Emotion.of(emotionNames.get(i), emotionColors.get(i));
-            emotionRepository.saveAndFlush(emotion);
-            if (i < 7) {
-                Diary diary = Diary.of(adminMember, "s", emotion, false);
-                diaryRepository.save(diary);
-
-            }
-            emotionRepository.saveAndFlush(emotion);
-        }
-
-        updatingEmotionId = emotionRepository.findByEmotion("슬픔|SAD").orElseThrow().getId();
-        beforeUpdatingEmotion = "슬픔|SAD";
-
-        deletingFailEmotionId = emotionRepository.findByEmotion("지침|TIRED").orElseThrow().getId();
-        deletingSuccessEmotionId = emotionRepository.findByEmotion("무감정|NONE").orElseThrow().getId();
 
     }
 }
