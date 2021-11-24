@@ -24,13 +24,13 @@ pipeline {
                 // sh './gradlew build'
             }
         }
-        stage('Deploy') {
-            steps {
-                echo hello
-                // sh 'docker build -t poolchm/javaccin:v0.0.8 .'
-                // docker push
-            }
-        }
+        // stage('Deploy') {
+        //     steps {
+        //         echo hello
+        //         // sh 'docker build -t poolchm/javaccin:v0.0.8 .'
+        //         // docker push
+        //     }
+        // }
     }
 }
 
