@@ -25,7 +25,7 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                sh 'docker build -t poolchm/javaccin:v0.0.8 .'
+                // sh 'docker build -t poolchm/javaccin:v0.0.8 .'
                 // docker push
             }
         }
